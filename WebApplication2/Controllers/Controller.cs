@@ -53,7 +53,7 @@ namespace WebApplication2.Controllers
                 
                 // Get tasks assigned to
                 com.CommandText =
-                    "select IdTask,Task.Name,Task.Description,Task.Deadline,P.Name,TT.Name from Task join TaskType TT on Task.IdTaskType = TT.IdTaskType join Project P on Task.IdProject = P.IdProject where IdAssignedTo = @id;";
+                    "select IdTask,Task.Name,Task.Description,Task.Deadline,P.Name,TT.Name from Task join TaskType TT on Task.IdTaskType = TT.IdTaskType join Project P on Task.IdProject = P.IdProject where IdAssignedTo = @id order by Task.Deadline desc;";
                 com.Parameters.AddWithValue("id", id);
                 dr = com.ExecuteReader();
                 while (dr.Read())
@@ -73,7 +73,7 @@ namespace WebApplication2.Controllers
                 // Get Tasks created 
                 
                 com.CommandText =
-                    "select IdTask,Task.Name,Task.Description,Task.Deadline,P.Name,TT.Name from Task join TaskType TT on Task.IdTaskType = TT.IdTaskType join Project P on Task.IdProject = P.IdProject where IdCreator = @id;";
+                    "select IdTask,Task.Name,Task.Description,Task.Deadline,P.Name,TT.Name from Task join TaskType TT on Task.IdTaskType = TT.IdTaskType join Project P on Task.IdProject = P.IdProject where IdCreator = @id order by Task.Deadline desc;";
                 com.Parameters.AddWithValue("id", id);
                 dr = com.ExecuteReader();
                 while (dr.Read())
@@ -130,7 +130,7 @@ namespace WebApplication2.Controllers
                 dr.Close();
                 // add associated tasks to response
                 com.CommandText =
-                    "select IdTask,Task.Name,Description,Deadline,TT.Name from Task join TaskType TT on Task.IdTaskType = TT.IdTaskType where IdProject =@id;";
+                    "select IdTask,Task.Name,Description,Deadline,TT.Name from Task join TaskType TT on Task.IdTaskType = TT.IdTaskType where IdProject =@id order by Task.Deadline desc;";
                 com.Parameters.AddWithValue("id", id);
                 dr = com.ExecuteReader();
 
